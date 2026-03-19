@@ -1972,7 +1972,7 @@ def trace_calls(frame, event, arg):
     else:
         caller_line_no = caller_filename = ""
     print(
-        f"{datetime.now().ctime(): } Call to {func_name} on line {func_line_no} of "
+        f"{datetime.now().ctime():} Call to {func_name} on line {func_line_no} of "
         f"{func_filename} from line {caller_line_no} of {caller_filename}"
     )
 
