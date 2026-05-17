@@ -504,6 +504,7 @@ def standardProgressBarWidth() -> int:
 class Distro(Enum):
     debian = auto()
     ubuntu = auto()
+    ubuntu2604 = auto()
     fedora = auto()
     neon = auto()
     linuxmint = auto()

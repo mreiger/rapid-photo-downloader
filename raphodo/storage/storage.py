@@ -149,7 +149,8 @@ def get_distro() -> Distro:
 
     if name:
         if "Ubuntu" in name:
-            distro = Distro.ubuntu
+            version_id = os_release.get("VERSION_ID")
+            distro = Distro.ubuntu2604 if version_id == "26.04" else Distro.ubuntu
         if "Fedora" in name:
             distro = Distro.fedora
         if "CentOS Linux" in name:
@@ -256,6 +257,7 @@ def get_media_dir() -> str:
             Distro.popos,
         ):
             if distro not in (
+                Distro.ubuntu2604,
                 Distro.fedora,
                 Distro.manjaro,
                 Distro.arch,
