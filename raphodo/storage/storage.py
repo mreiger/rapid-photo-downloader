@@ -149,11 +149,11 @@ def get_distro() -> Distro:
 
     if name:
         if "Ubuntu" in name:
-            distro = Distro.ubuntu2604plus
+            distro = Distro.ubuntu
             try:
-                version_num = float(os_release.get("VERSION_ID"))
-                if version_num < 26.04:
-                    distro = Distro.ubuntu
+                version_num = tuple(map(int, os_release.get("VERSION_ID", "0.0").split(".")))
+                if version_num >= (26, 4):
+                    distro = Distro.ubuntu2604plus
             except Exception as e:
                 logging.error("Error reading Ubuntu's VERSION_ID: %s", str(e))
         if "Fedora" in name:
