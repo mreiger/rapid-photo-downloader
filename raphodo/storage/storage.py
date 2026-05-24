@@ -43,6 +43,7 @@ from tempfile import NamedTemporaryFile
 from typing import NamedTuple
 from urllib.parse import quote
 from urllib.request import pathname2url
+from platform import freedesktop_os_release
 
 import gi
 
@@ -121,28 +122,13 @@ def guess_distro() -> Distro:
     return Distro.unknown
 
 
-def parse_os_release() -> dict[str, str]:
-    d = {}
-    if os.path.isfile("/etc/os-release"):
-        with open("/etc/os-release") as f:
-            for line in f:
-                line = line.strip()
-                if line and not line.startswith("#"):
-                    kv = line.split("=", maxsplit=1)
-                    if len(kv) == 2:
-                        k, v = kv
-                        v = v.strip("'\"")
-                        d[k] = v
-    return d
-
-
-def get_distro_and_version() -> (Distro, str):
+def get_distro_and_version() -> tuple[Distro, str]:
     """
     Determine the Linux distribution using /etc/os-release
     :param os_release: parsed /etc/os-release file
     """
 
-    os_release = parse_os_release()
+    os_release = freedesktop_os_release()
     name = os_release.get("NAME")
 
     distro = None
@@ -251,7 +237,7 @@ def get_media_dir() -> str:
 
         media_dir = f"/media/{get_user_name()}"
         run_media_dir = "/run/media"
-        (distro, version) = get_distro_and_version()
+        distro, version = get_distro_and_version()
         if os.path.isdir(run_media_dir) and distro not in (
             Distro.debian,
             Distro.neon,

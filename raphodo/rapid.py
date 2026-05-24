@@ -6894,7 +6894,7 @@ def main():
             if prefer_dark:
                 palette = darkPalette(accent_color=accent_color)
                 dark_mode_quirk = True
-            elif get_distro_and_version() == Distro.fedora:
+            elif get_distro_and_version()[0] == Distro.fedora:
                 palette = standardPalette(accent_color=accent_color)
             else:
                 # Change only the accent palette, not the entire palette
