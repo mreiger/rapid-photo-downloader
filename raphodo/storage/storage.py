@@ -246,7 +246,6 @@ def get_media_dir() -> str:
         run_media_dir = "/run/media"
         distro = get_distro()
         if os.path.isdir(run_media_dir) and distro not in (
-            Distro.ubuntu,
             Distro.debian,
             Distro.neon,
             Distro.galliumos,
@@ -256,6 +255,7 @@ def get_media_dir() -> str:
             Distro.popos,
         ):
             if distro not in (
+                Distro.ubuntu,
                 Distro.fedora,
                 Distro.manjaro,
                 Distro.arch,
@@ -267,8 +267,9 @@ def get_media_dir() -> str:
                 Distro.centos7,
             ):
                 logging.debug(
-                    "Detected /run/media directory, but distro does not appear "
-                    "to be CentOS, Fedora, Arch, openSUSE, Gentoo, or Manjaro"
+                    "Detected /run/media directory, but distro does not "
+                    "appear to be CentOS, Fedora, Arch, openSUSE, Gentoo "
+                    "Manjaro or Ubuntu"
                 )
                 log_os_release()
             return run_media_dir
